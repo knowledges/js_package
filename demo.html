@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<link rel="stylesheet" href="css/pagination.css">
+</head>
+<body>
+	<h1>我妹啊</h1>
+	<div id="pagination" class="pagination clearfix">
+</body>
+<script src="js/jquery-1.10.2.js"></script>
+<script src="js/jquery.qbl.src.js"></script>
+<script src="js/interface.js"></script>
+<script>
+	$(function () {
+		function showVdetail (index,limit) {
+			IMethod.findPassword({
+				index:index,
+				limit:limit,
+				success:function (data) {
+					// body...
+				},timeout:function () {
+					// body...
+					alert();
+				}
+			})
+		}
+		// 分页的调用
+		$("#pagination").pagging({
+            sum: 45,
+            param: {},
+            current: 1,
+            callback: function(idx, param) {
+                showVdetail(0, 20)
+            }
+        });
+
+		/**
+		 * [description] loadmore
+		 * @param  {[type]} event) {		             		    var totalheight [description]
+		 * @return {[type]}        [description]
+		 */
+		$(window).scroll(function(event) {
+		    /* Act on the event */
+		    var totalheight = parseFloat($(window).height()) + parseFloat($(window).scrollTop());
+		    if ($(document).height() <= totalheight && !all) {
+		       
+		    }
+		});
+
+	})
+</script>
+</html>
