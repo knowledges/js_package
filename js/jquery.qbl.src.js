@@ -34,7 +34,16 @@
 			codeRegExp : function (_k) {
 				return /^\d{6}$/.test(_k);
 			}
+		},
+		/**
+		 * [objIsEmpty description] 判断object 是否为空
+		 * @param  {[type]} _k [description]
+		 * @return {[type]}    [description]
+		 */
+		objIsEmpty:function (_obj) {
+			return jQuery.isEmptyObject(_obj);
 		}
+
 	};
 	var JQMethod = new jQMethod();
     jQMethod.prototype = JQMethod;
