@@ -98,6 +98,20 @@
 		return null;
 	};
 
+	/* 
+	* 判断object是否空，未定义或null 
+	* @param object  
+	* @return 
+	*/  
+	jQuery.mIsNull = function (obj) {  
+	    if (obj == "" || typeof(obj) == "undefined" || obj == null) {  
+	        return true;  
+	    }  
+	    else {  
+	        return false;  
+	    }  
+	};  
+
 	/**
 	 * [pagging description] 分页
 	 * @param  {[type]} opts [description]
