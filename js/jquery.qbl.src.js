@@ -36,7 +36,7 @@
 			}
 		},
 		/**
-		 * [objIsEmpty description] 判断object 是否为空
+		 * [objIsEmpty description] 判断map 是否为空
 		 * @param  {[type]} _k [description]
 		 * @return {[type]}    [description]
 		 */
