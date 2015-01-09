@@ -103,7 +103,7 @@
 	* @param object  
 	* @return 
 	*/  
-	jQuery.mIsNull = function (obj) {  
+	$.isNull = function (obj) {  
 	    if (obj == "" || typeof(obj) == "undefined" || obj == null) {  
 	        return true;  
 	    }  
