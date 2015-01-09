@@ -1,10 +1,4 @@
 (function(window){
-
-	var phoneRegExp = /^1(3|4|5|8)\d{9}$/;
-	var pwdRegExp = /^\S{6,16}$/;
-	var emptyRegExp = /\S/;
-	var mailRegExp = /^\S+@\S+\.\S+$/;
-	var codeRegExp = /^\d{6}$/;
 	var jQMethod = function () {
 		// body...
 	};
@@ -17,23 +11,6 @@
 			clear: function() {
 			    localStorage.clear();
 			},
-		},
-		regExp : {
-			phoneRegExp : function (_k) {
-				return /^1(3|4|5|8)\d{9}$/.test(_k);
-			},
-			pwdRegExp : function (_k) {
-				return /^\S{6,16}$/.test(_k);
-			},
-			emptyRegExp : function (_k) {
-				return /\S/.test(_k);
-			},
-			mailRegExp : function (_k) {
-				return /^\S+@\S+\.\S+$/.test(_k);
-			},
-			codeRegExp : function (_k) {
-				return /^\d{6}$/.test(_k);
-			}
 		},
 		/**
 		 * [objIsEmpty description] 判断map 是否为空
