@@ -135,12 +135,12 @@
 	        case 'int+': //正整数包含0  
 	            objexp = "^\\d+$";  
 	            break;  
-	        case 'int-': //负整数包含0  
-	            objexp = "^((-\\d+)|(0+))$";  
-	            break;  
+	        case 'int-': //负整数包含0
+	            objexp = "^((-\\d+)|(0+))$";
+	            break;
 	        case 'china': //中文   
-	            objexp = /^[\u0391-\uFFE5]+$/;  
-	            break;  
+	            objexp = /^[\u0391-\uFFE5]+$/;
+	            break;
 	    }  
 	    var re = new RegExp(objexp);  
 		re.test(str) ?

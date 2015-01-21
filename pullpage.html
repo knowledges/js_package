@@ -1,0 +1,186 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>pullPage.html</title>
+	<link rel="stylesheet" href="css/pullpage.css">
+	<!--[if lte IE 8]>
+		<link rel="stylesheet" href="css/jianrong.css">
+	<![endif]-->
+</head>
+<body>
+	<div id="menu">
+		<ul>
+			<li><a href="javascript:void(0); " title="1" class="active"><span></span></a></li>
+			<li><a href="javascript:void(0); " title="2"><span></span></a></li>
+			<li><a href="javascript:void(0); " title="3"><span></span></a></li>
+			<li><a href="javascript:void(0); " title="4"><span></span></a></li>
+		</ul>
+	</div>
+	<div id="fullpage" role="background">
+		<div class="section" role="div_1">
+			<div class="tableCell">
+				<div class="screen-main">
+					<span class="shi1" rel="-501,-455,449,245" ></span>
+					<span class="shi2" rel="1387,-359,387,295" ></span>
+					<span class="shi3" rel="-619,-359,381,341" ></span>
+					<span class="shi4" rel="1295,-259,398,441" ></span>
+					<span class="ji1" rel="-328,-589,673,111" ></span>
+					<span class="ji2" rel="1648,-487,648,213" ></span>
+					<span class="ji3" rel="-244,-488,756,212" ></span>
+					<span class="year2" rel="1686,-213,686,487" ></span>
+					<span class="year0" rel="-266,-189,734,511" ></span>
+					<span class="year1" rel="1792,-210,792,490" ></span>
+					<span class="year3" rel="-173,-207,827,493" ></span>
+					<span class="slogen" rel="1462,-106,462,594" ></span>
+				</div>
+			</div>			
+		</div>
+		<div class="section" role="div_2"> </div>
+		<div class="section" role="div_3"> </div>
+		<div class="section" role="div_4"> </div>
+	</div>
+	<div id="top" style="display:none;">
+		TOP
+	</div>
+</body>
+<script src="js/jquery-1.10.2.js"></script>
+<script>
+	$(function () {
+		$(document).ready(function($) {
+			window.screenHeight = window.screen.height;
+			$('.section').css({
+				height: screenHeight + 'px'
+			});
+			shiji_addAnimation () ;
+		});
+
+
+		function shiji_addAnimation () {
+			$(".shi1").animate({top:'245px',left: '449px'},500);
+			$(".shi2").animate({top:'295px',left: '387px'},600);
+			$(".shi3").animate({top:'341px',left: '381px'},800);
+			$(".shi4").animate({top:'441px',left: '398px'},900);
+			$(".ji1").animate({top:'111px',left: '673px'},850);
+			$(".ji2").animate({top:'213px',left: '648px'},750);
+			$(".ji3").animate({top:'212px',left: '756px'},550);
+			$(".year0").animate({top:'511px',left: '734px'},880);
+			$(".year1").animate({top:'490px',left: '792px'},640);
+			$(".year2").animate({top:'487px',left: '686px'},950);
+			$(".year3").animate({top:'493px',left: '827px'},690);
+			$(".slogen").animate({top:'594px',left: '462px'},590);
+		}
+		function shiji_remAnimation () {
+			$(".shi1").animate({top:'-400px',left: '-500px'},500);
+			$(".shi2").animate({top:'-395px',left: '1387px'},600);
+			$(".shi3").animate({top:'-359px',left: '-619px'},800);
+			$(".shi4").animate({top:'-259px',left: '1387px'},900);
+			$(".ji1").animate({top:'-589px',left: '-327px'},850);
+			$(".ji2").animate({top:'-487px',left: '1648px'},750);
+			$(".ji3").animate({top:'-488px',left: '-244px'},550);
+			$(".year0").animate({top:'-189px',left: '-266px'},880);
+			$(".year1").animate({top:'-210px',left: '1792px'},640);
+			$(".year2").animate({top:'-213px',left: '1686px'},950);
+			$(".year3").animate({top:'-207px',left: '-173px'},690);
+			$(".slogen").animate({top:'-106px',left: '1462px'},590);
+		}
+
+		var currPageIdx = 1;
+
+		function scrollUp(num, type) {
+			scrollPage(num, type);
+		}
+
+		function scrollDown(num, type) {
+			scrollPage(num, type);
+		}
+
+		function scrollPage(pageIndex, type) {
+			var total = $(".section").length;
+			currPageIdx = pageIndex;
+
+			if (currPageIdx > total) {
+				currPageIdx = total;
+				return;
+			} else if (currPageIdx < 1) {
+				currPageIdx = 1;
+				return;
+			}
+
+			if ($("#fullpage").is(":animated")) {
+				if (type == "scrollDown") {
+					--currPageIdx;
+				}else {
+					++currPageIdx;
+				}
+				if (pageIndex > 1) {
+					shiji_remAnimation ();
+				}
+			}else{
+				animated(currPageIdx);
+			}
+		}
+
+		$("#menu").find('li > a').unbind('click').click(function(event) {
+			var index =  parseInt($(this).attr('title'))
+			animated(index);
+			event.stopPropagation();
+
+		});
+	
+
+		function animated(pageIndex){
+			$("#fullpage").animate({
+				'top': -window.screenHeight * (pageIndex - 1 <= 0 ? 0 : pageIndex - 1) + 'px'
+			}, 1000,function(){
+				if (pageIndex ==1) {
+					shiji_addAnimation ();
+				}
+				$("#menu").find('li > a').removeClass('active');
+				$("#menu").find('li > a').eq(pageIndex-1).addClass('active');
+				if (pageIndex >2) {
+					$("#top").fadeIn('1000', function() {
+						$(this).unbind('click').click(function(event) {
+							animated(1);
+							currPageIdx = 1;
+							$("#menu").find('li > a').removeClass('active');
+							$("#menu").find('li > a').eq(pageIndex-1).addClass('active');
+							$("#top").fadeOut('1000');
+						})
+					});
+				}else{
+					$("#top").fadeOut('1000');
+				}
+			});
+		}
+
+
+		function handle(delta) {
+			if (delta < 0) {
+				scrollDown(++currPageIdx, "scrollDown")
+			} else {
+				scrollUp(--currPageIdx, "scrollUp");
+			}
+		}
+
+		var scrollFunc = function(e, type) {
+			var direct = 0;
+			e = e || window.event;
+			if (e.wheelDelta) { //判断浏览器IE，谷歌滑轮事件    
+				direct = e.wheelDelta / 120;
+				if (window.opera) direct = -direct;
+			} else if (e.detail) { //Firefox滑轮事件
+				direct = -e.detail / 3;
+			}
+			handle(direct);
+		}
+
+		if (document.addEventListener) {
+			document.addEventListener('DOMMouseScroll', scrollFunc, false);
+		}
+
+		window.onmousewheel = document.onmousewheel = scrollFunc;
+
+	});
+</script>
+</html>
