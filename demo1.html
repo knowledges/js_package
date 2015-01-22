@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	
+</body>
+<script>
+
+	function GetRandom() {
+		var arr = [];
+		for (var i = 1; i < 27; i++) { //生成一个1-26的数组
+			arr[i - 1] = i;
+		}
+		for (var r = 0; r < 26; r++) { //生成一个0-(25-r)的随机索引,
+			var t = arr[25 - r];
+			arr[25 - r] = arr[Math.floor(Math.random() * (26 - r))];
+			arr[Math.floor(Math.random() * (26 - r))] = t;
+			console.log(t);
+		}
+	}
+</script>
+</html>

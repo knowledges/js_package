@@ -36,26 +36,56 @@
 				</div>
 			</div>			
 		</div>
-		<div class="section" role="div_2"> </div>
+		<div class="section" role="div_2">
+			<div class="images">
+				<ul class="img_ul clearfix">
+					<li><a href="javascript:void(0);"><img src="images/show_1.jpg" alt=""></a></li>
+					<li><a href="javascript:void(0);"><img src="images/show_2.jpg" alt=""></a></li>
+					<li><a href="javascript:void(0);"><img src="images/show_3.jpg" alt=""></a></li>
+					<li><a href="javascript:void(0);"><img src="images/show_4.jpg" alt=""></a></li>
+					<li><a href="javascript:void(0);"><img src="images/show_5.jpg" alt=""></a></li>
+					<li><a href="javascript:void(0);"><img src="images/show_6.jpg" alt=""></a></li>
+					<li><a href="javascript:void(0);"><img src="images/show_7.jpg" alt=""></a></li>
+					<li><a href="javascript:void(0);"><img src="images/show_8.jpg" alt=""></a></li>
+					<li><a href="javascript:void(0);"><img src="images/show_9.jpg" alt=""></a></li>
+					<li><a href="javascript:void(0);"><img src="images/show_10.jpg" alt=""></a></li>
+					<li><a href="javascript:void(0);"><img src="images/show_11.jpg" alt=""></a></li>
+					<li><a href="javascript:void(0);"><img src="images/show_12.jpg" alt=""></a></li>
+					<li><a href="javascript:void(0);"><img src="images/show_13.jpg" alt=""></a></li>
+					<li><a href="javascript:void(0);"><img src="images/show_14.jpg" alt=""></a></li>
+					<li><a href="javascript:void(0);"><img src="images/show_15.jpg" alt=""></a></li>
+					<li><a href="javascript:void(0);"><img src="images/show_16.jpg" alt=""></a></li>
+					<li><a href="javascript:void(0);"><img src="images/show_17.jpg" alt=""></a></li>
+					<li><a href="javascript:void(0);"><img src="images/show_18.jpg" alt=""></a></li>
+					<li><a href="javascript:void(0);"><img src="images/show_19.jpg" alt=""></a></li>
+					<li><a href="javascript:void(0);"><img src="images/show_20.jpg" alt=""></a></li>
+					<li><a href="javascript:void(0);"><img src="images/show_21.jpg" alt=""></a></li>
+					<li><a href="javascript:void(0);"><img src="images/show_22.jpg" alt=""></a></li>
+					<li><a href="javascript:void(0);"><img src="images/show_23.jpg" alt=""></a></li>
+					<li><a href="javascript:void(0);"><img src="images/show_24.jpg" alt=""></a></li>
+				</ul>
+			</div>
+		</div>
 		<div class="section" role="div_3"> </div>
 		<div class="section" role="div_4"> </div>
 	</div>
 	<div id="top" style="display:none;">
 		TOP
 	</div>
+	<div id="mask_bg"></div>
 </body>
 <script src="js/jquery-1.10.2.js"></script>
 <script>
 	$(function () {
 		$(document).ready(function($) {
-			window.screenHeight = window.screen.height;
-			$('.section').css({
-				height: screenHeight + 'px'
+			window.screenHeight = window.innerHeight!=undefined ? window.innerHeight : window.screen.height-window.screenTop;
+			$('.section,.screen-main').css({
+				height: window.screenHeight + 'px'
 			});
 			shiji_addAnimation () ;
 		});
 
-
+		//////////////////////////////////////////第一页///////////////////////////////////////////////////
 		function shiji_addAnimation () {
 			$(".shi1").animate({top:'245px',left: '449px'},500);
 			$(".shi2").animate({top:'295px',left: '387px'},600);
@@ -84,6 +114,35 @@
 			$(".year3").animate({top:'-207px',left: '-173px'},690);
 			$(".slogen").animate({top:'-106px',left: '1462px'},590);
 		}
+
+		//////////////////////////////////////////第二页//////////////////////////////////////////////////////////////
+		function pic_show() {
+			window.arr = [10,4,5,6,12,18,24,23,22,21,20,19,13,7,1,2,3,9,8,7,14,15,16,17,11];
+			var images = $(".img_ul").find('img');
+			for (var i = 0; i < arr.length; i++) {
+					showPicture (i);
+			};
+			function showPicture (num) {
+				setTimeout(function () {
+					images.eq(arr[num]-1).fadeIn(800,'linear');
+				},1000+24*num)
+			}
+		}
+
+		function pic_hide() {
+			var images = $(".img_ul").find('img');
+			for (var i = window.arr.length-1; i >=0 ;--i) {
+					hidePicture (i);
+			};
+			function hidePicture (num) {
+				setTimeout(function () {
+					images.eq(window.arr[num]-1).fadeOut(200,'linear');
+				},100+24*num)
+			}
+		}
+
+
+
 
 		var currPageIdx = 1;
 
@@ -119,23 +178,42 @@
 			}else{
 				animated(currPageIdx);
 			}
+
+			if (currPageIdx == 2) {
+				pic_show () ;
+			}else{
+				pic_hide();
+			}
+
 		}
 
+		/////////////////////////////////////click/////////////////////////////////////////////////////
 		$("#menu").find('li > a').unbind('click').click(function(event) {
 			var index =  parseInt($(this).attr('title'))
 			animated(index);
 			event.stopPropagation();
-
 		});
-	
+		
+		$(".images").find('li > a').unbind('dblclick').dblclick(function(event) {
+			$("#mask_bg").show();
+			debugger;
+			window.onmousewheel = document.onmousewheel = "";
+		});
 
 		function animated(pageIndex){
+			switch(pageIndex){
+				case 1:
+					pic_hide();
+					shiji_addAnimation ();
+				break;
+				case 2:
+					pic_show();
+					shiji_remAnimation ();
+				break;
+			}
 			$("#fullpage").animate({
 				'top': -window.screenHeight * (pageIndex - 1 <= 0 ? 0 : pageIndex - 1) + 'px'
 			}, 1000,function(){
-				if (pageIndex ==1) {
-					shiji_addAnimation ();
-				}
 				$("#menu").find('li > a').removeClass('active');
 				$("#menu").find('li > a').eq(pageIndex-1).addClass('active');
 				if (pageIndex >2) {
@@ -153,7 +231,6 @@
 				}
 			});
 		}
-
 
 		function handle(delta) {
 			if (delta < 0) {
