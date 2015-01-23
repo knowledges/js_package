@@ -215,11 +215,9 @@
 			
 		})
 		$(".img_li").unbind('mouseleave ').mouseleave (function(event){
-			if (!$(this).find('#img_title').is(":animated")) {
 				$(this).find('#img_title').animate({
 					bottom: '-44px'},
 					500,'linear');
-			}
 			event.stopPropagation();
 		})
 		/////////////////////////////////////click/////////////////////////////////////////////////////
