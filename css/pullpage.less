@@ -131,6 +131,7 @@ body{
 			margin: 0 auto;
 			*padding: 55px;
 			li{
+				position: relative;
 				float: left;
 				margin: 5px;
 				display: inline-block;
@@ -162,6 +163,16 @@ body{
 							transform:scale(1.15) ;
 						}
 					}
+				}
+				#img_title{
+					position: absolute;
+					bottom: -45px;
+					left: 0;
+					width: 100%;
+					box-sizing: border-box;
+					font-size: 16px;
+					padding: 10px;
+					background: #000;
 				}
 			}
 		}		
@@ -204,6 +215,8 @@ body{
 	animation:bounce 1.15s ease ;
 
 }
+
+
 @-webkit-keyframes bounce{
 	0%, 20%, 50%, 80%, 100% {
 		-webkit-transform: translateY(0)
@@ -238,19 +251,75 @@ body{
 	}
 }
 #mask_bg{
-	display: none;
-	position: fixed;
+	// display: none;
+	position: absolute;
 	width: 100%;
-	height: 800px;
 	background: #000;
 	top: 0;
 	left: 0;
-	z-index: 9;
+	z-index: 7;
+	display: inline-block;
+	overflow: hidden;
+	zoom: 1;
 	.transparent_class(.8);
 }
+#mask_main{
+	position: absolute;	
+	z-index: 9;
+	width: 800px;
+	height: 600px;
+	background: #000;
+	text-align: center;
+	line-height: 600px;
+	div{
+		position: relative;
+		img{
+			width: 600px;
+			height: 375px;
+		}
+		#mask_load{
+			display: inline-block;
+			width: 600px;
+			height: 600px;
+			background: url(../images/loading.gif) no-repeat;
+		}
+		.mask_btn{
+			position: absolute;
+			display: inline-block;
+			width: 50px;
+			height: 100px;
+			top: 40%;
+			*top:20%;
+		}
+		.btn_left{
+			left: 2%;
+			&:hover{
+				background: url(../images/btn_left.png) no-repeat center center;
+			}
+		}
+		.btn_right{
+			right: 2%;
+			&:hover{
+				background: url(../images/btn_right.png) no-repeat center center;
+			}
+		}
+	}
+}
 .transparent_class(@num) {  
-	filter:alpha(opacity=@num);  
-	-moz-opacity:@num;  
-	-khtml-opacity: @num;  
-	opacity:@num;  
+	/* older safari/Chrome browsers */  
+    -webkit-opacity: @num;  
+    /* Netscape and Older than Firefox 0.9 */  
+    -moz-opacity: @num;  
+    /* Safari 1.x (pre WebKit!) 老式khtml内核的Safari浏览器*/  
+    -khtml-opacity: @num;  
+    /* IE9 + etc...modern browsers */  
+    opacity: @num;
+
+    /* IE 4-9 */  
+    filter:alpha(opacity=80);  
+    /*This works in IE 8 & 9 too*/  
+    -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=.8)";  
+    /*IE4-IE9*/  
+    filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=.8); 
+   	filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(enabled=true, sizingMethod='scale', src='../images/bg.png');
 }   
