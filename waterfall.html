@@ -4,14 +4,19 @@
 	<meta charset="UTF-8">
 	<title>瀑布流</title>
 	<link rel="stylesheet" href="css/waterfall.css">
+	<script src="js/jquery-1.10.2.js"></script>
 </head>
 <body>
-	<div id="man">
+	<div id="man" class="clearfix">
 		<div class="box">
-			<div class="pic"><img src="images/img_1.jpg" height="375" width="500" alt=""></div>
+			<div class="pic">
+				<img src="images/img_1.jpg" alt="">
+			</div>
 		</div>
 		<div class="box">
-			<div class="pic"><img src="images/img_2.jpg" alt=""></div>
+			<div class="pic">
+				<img src="images/img_2.jpg" alt="">
+			</div>
 		</div>
 		<div class="box">
 			<div class="pic"><img src="images/img_3.jpg" alt=""></div>
@@ -121,4 +126,38 @@
 		</div>
 	</div>
 </body>
+<script>
+$(function(){
+
+	window.onload = function(){
+		waterfall();	
+
+
+		function waterfall () {
+			var boxs = $("#man>div");
+			var w = boxs.eq(0).outerWidth();
+			var cols = Math.floor($(window).width()/w);
+			$("#man").width(w*cols).css('margin','0 auto');
+			var hArr=[];
+			boxs.each(function(index, val) {
+				var h = boxs.eq(index).outerHeight();
+				// 操作前7块
+				if (index < cols) {
+					hArr[index] = h;
+				}else{
+					// 最小值的高和索引
+					var minH = Math.min.apply(null,hArr);
+					var minHIndex = $.inArray(minH, hArr);
+					$(val).css({
+						position: 'absolute',
+						top: minH+'px',
+						left:minHIndex*w+'px'
+					});
+					hArr[minHIndex] += boxs.eq(index).outerHeight();
+				}
+			});
+		}
+	}
+})
+</script>
 </html>
